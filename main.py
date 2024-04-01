@@ -1,12 +1,19 @@
 from flask import Flask, render_template
-from flask_wtf import FlaskForm
+from services import current_weather_api, daily_weather_api, datetime_services
 
 app = Flask(__name__)
 
 # http://www.domena.hr/
 @app.route('/')
 def index():
-    return render_template('index.html')
+    temperature = current_weather_api.weather_temperature()
+    humidity = current_weather_api.weather_humidity()
+    pressure = current_weather_api.weather_pressure()
+    daily_temp = daily_weather_api.daily_temperature()
+    daily_hum = daily_weather_api.daily_humidity()
+    daily_pres = daily_weather_api.daily_pressure()
+    yesterday_date = datetime_services.get_yesterday_datetime()
+    return render_template('index.html', temperature=temperature, humidity= humidity, pressure=pressure, daily_temp=daily_temp, daily_hum=daily_hum, daily_pres=daily_pres, yesterday_date=yesterday_date)
 
 # http://www.domena.hr/temperature
 @app.route('/temperature')
