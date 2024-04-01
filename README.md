@@ -1,0 +1,2 @@
+# Parcijalni_ispit-IoT
+ 
