@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">WeatherOutside</h1>
+    <div class="col-md-8">
+        <ul class="list-group">
+            <li class="list-group-item">TEMPERATURE: {{ "VLA" }}</li>
+            <li class="list-group-item">PRESSURE: {{ "prazno" }}</li>
+            <li class="list-group-item">HUMIDITY: {{ "prazno" }}</li>
+        </ul>
+    </div>
+</div>
+
+<h2>Mjerenja sa senzora</h2>
+<div class="table-responsive small">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Temperature</th>
+                <th scope="col">Pressure</th>
+                <th scope="col">Humidity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>-></td>
+                <td>data</td>
+                <td>rich</td>
+                <td>dashboard</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>random</td>
+                <td>data</td>
+                <td>placeholder</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>placeholder</td>
+                <td>irrelevant</td>
+                <td>visual</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>information</td>
+                <td>placeholder</td>
+                <td>illustrative</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>text</td>
+                <td>random</td>
+                <td>layout</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>dashboard</td>
+                <td>irrelevant</td>
+                <td>text</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>dashboard</td>
+                <td>illustrative</td>
+                <td>rich</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>placeholder</td>
+                <td>tabular</td>
+                <td>information</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>random</td>
+                <td>data</td>
+                <td>placeholder</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>placeholder</td>
+                <td>irrelevant</td>
+                <td>visual</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+    var temperatures_data =  "empty" 
+
+    (() => {
+        'use strict'
+
+        // Graphs
+        const ctx = document.getElementById('myChart')
+        // eslint-disable-next-line no-unused-vars
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    data: temperatures_data,
+                    lineTension: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    borderWidth: 4,
+                    pointBackgroundColor: '#007bff'
+                }]
+            },
+            options: {
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        boxPadding: 3
+                    }
+                }
+            }
+        })
+    })()
+
+</script>
+{% endblock %}
