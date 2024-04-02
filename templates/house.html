@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block page_content %}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Household Weather Conditions</h1>
+    <div class="col-md-8">
+        <ul class="list-group">
+            <li class="list-group-item">TEMPERATURE: {{ home_temp }}</li>
+            <li class="list-group-item">PRESSURE: {{ home_pres }}</li>
+            <li class="list-group-item">HUMIDITY: {{ home_hum }}</li>
+        </ul>
+    </div>
+    <button onclick="adjustValues()">Adjust Values</button>
+    <form action="/adjust_values" method="post" style="display: none;">
+        <input type="hidden" name="adjust_values" value="true">
+        <button type="submit" id="adjust-button" style="display: none;"></button>
+    </form>
+    <script>
+        // Call the adjustValues() function when the middle button is pressed
+        function adjustValues() {
+            document.getElementById('adjust-button').click();
+        }
+    </script>
+</div>
+
+
+<div class="border-bottom" style="margin-bottom: 20px;">
+    <h2>Graphs</h2>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <style>
+        .chart-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .chart {
+                max-width: calc(100vw / 3 - 20px); /* Adjust margin as needed */
+                width: 100%; /* Set width to fill container */
+                margin-right: 10px; /* Add margin between charts */
+                height: 80px;
+            }
+    </style>
+    </head>
+    <body>
+    <div class="chart-container">
+        <canvas id="chart1" class="chart"></canvas>
+        <canvas id="chart2" class="chart"></canvas>
+        <canvas id="chart3" class="chart"></canvas>
+    </div>
+    
+    <script>
+        const xValues = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00"];
+    
+        const dailyTempData = {{daily_temp}};
+        const dailyPresData = {{daily_pres}};
+        const dailyHumData = {{daily_hum}};
+    
+        const createChart = (canvasId, data, label, borderColor) => {
+            new Chart(canvasId, {
+                type: "line",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        borderColor: borderColor,
+                        fill: false
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: false
+                            }
+                        }]
+                    },
+                    legend: { display: true }
+                }
+            });
+        };
+    
+        createChart('chart1', dailyTempData, 'Temperature', 'red');
+        createChart('chart2', dailyPresData, 'Pressure', 'green');
+        createChart('chart3', dailyHumData, 'Humidity', 'blue');
+    </script>
+    </div>
+
+{% endblock page_content %}
